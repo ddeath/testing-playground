@@ -1,0 +1,29 @@
+name: 'Release'
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Compile
+        run: yarn tsc
+
+      - name: Print version
+        run: yarn release:version
+
+      - name: Print version
+        run: yarn release

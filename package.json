@@ -1,0 +1,25 @@
+{
+  "name": "testing-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "release-it": "^18.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "release-it",
+    "release:version": "release-it --release-version"
+  },
+  "author": "",
+  "release-it": {
+    "npm": {
+      "publish": false,
+      "ignoreVersion": true
+    },
+    "git": {
+      "commit": false
+    }
+  },
+  "license": "ISC"
+}

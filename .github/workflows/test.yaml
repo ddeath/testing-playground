@@ -1,0 +1,29 @@
+name: 'Node - Build & Test'
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, converted_to_draft]
+    branches: [main]
+
+jobs:
+  node-build-test:
+    name: Node Build and Test
+    runs-on: ubuntu-latest
+    permissions: write-all
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Print version
+        run: yarn release:version
