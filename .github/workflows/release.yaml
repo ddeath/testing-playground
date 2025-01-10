@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Compile
-        run: yarn tsc
-
       - name: Print version
         run: yarn release:version
 
