@@ -43,7 +43,7 @@ jobs:
 
       - name: Check release version
         id: release_version
-        run: echo "release_version='$(yarn --silent release:version)'" >> "$GITHUB_OUTPUT"
+        run: echo "release_version='v$(yarn --silent release:version)'" >> "$GITHUB_OUTPUT"
 
       - name: Print version
         run: yarn release
@@ -57,7 +57,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
-            type=semver,pattern={{version}},value=v${{ steps.release_version.outputs.release_version }}
+            type=semver,pattern={{version}},value=${{ steps.release_version.outputs.release_version }}
 
       - name: Build and push Docker image
         id: push
