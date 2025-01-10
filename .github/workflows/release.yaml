@@ -30,7 +30,7 @@ jobs:
 
       - name: Print version
         run: |
-          PACKAGE_VERSION=$(yarn release:version)
+          PACKAGE_VERSION=$(yarn --silent release:version)
           echo Nice!
           echo $PACKAGE_VERSION
           echo Done
