@@ -33,6 +33,7 @@ jobs:
           PACKAGE_VERSION=$(yarn release:version)
           echo Nice!
           echo $PACKAGE_VERSION
+          echo Done
 
       - name: Print version
         run: yarn release
