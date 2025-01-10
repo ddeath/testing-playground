@@ -26,16 +26,23 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        
 
-      - name: Print version
-        run: |
-          PACKAGE_VERSION=$(yarn --silent release:version)
-          echo Nice!
-          echo $PACKAGE_VERSION
-          echo Done
+      - name: Check release version
+        id: release_version
+        run: echo "release_version='$(yarn --silent release:version)'" >> "$GITHUB_OUTPUT"
 
       - name: Print version
         run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker Image
+        run: docker build --no-cache --pull -t ghcr.io/ddeath/testing-playground:${{ steps.release_version.outputs.release_version }} . -f Dockerfile
+
+      - name: Tag Docker Image with Latest
+        run: docker tag ghcr.io/ddeath/testing-playground:${{ steps.release_version.outputs.release_version }} ghcr.io/ddeath/testing-playground:latest
+
+      - name: Push Docker Image
+        run: |
+          docker push ghcr.io/ddeath/testing-playground:${{ steps.release_version.outputs.release_version }}
+          docker push ghcr.io/ddeath/testing-playground:latest
