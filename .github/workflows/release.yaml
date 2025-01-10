@@ -29,7 +29,10 @@ jobs:
         
 
       - name: Print version
-        run: yarn release:version
+        run: |
+          PACKAGE_VERSION=$(yarn release:version)
+          echo Nice!
+          echo $PACKAGE_VERSION
 
       - name: Print version
         run: yarn release
